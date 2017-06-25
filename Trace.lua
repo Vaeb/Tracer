@@ -1,10 +1,10 @@
 --[[
 
-    Apologies for the terrible coding style,
-    I started this a long time ago and my modern styling looks very different.
+	Apologies for the terrible coding style,
+	I started this a long time ago and my modern styling looks very different.
 
-    Notes:
-        -This is part of the main module that I run every SB session, and thus was not intended to be used as a standalone script.
+	Notes:
+		-This is part of the main module that I run every SB session, and thus was not intended to be used as a standalone script.
 
 ]]
 
@@ -61,20 +61,20 @@ local function addCmd(Name, Func)
 end
 
 function RunCommand(Message)
-    if Message:sub(1, #Prefix) == Prefix then
-        local Message = Message:sub(1 + #Prefix)
-        for Names,Func in pairs(Commands) do
-            for _,Name in pairs(Names) do
-                if Message:lower():sub(1, #Name) == Name:lower() and Message:sub(1 + #Name, #Name + #Suffix):match("^"..Suffix.."?$") then
-                    local Message = Message:sub(1 + #Name + #Suffix)
-                    local newFunc, newErr = pcall(Func, Message)
-                    if newErr then
-                        print("[COMMAND] Error:", newErr)
-                    end
-                end
-            end
-        end
-    end
+	if Message:sub(1, #Prefix) == Prefix then
+		local Message = Message:sub(1 + #Prefix)
+		for Names,Func in pairs(Commands) do
+			for _,Name in pairs(Names) do
+				if Message:lower():sub(1, #Name) == Name:lower() and Message:sub(1 + #Name, #Name + #Suffix):match("^"..Suffix.."?$") then
+					local Message = Message:sub(1 + #Name + #Suffix)
+					local newFunc, newErr = pcall(Func, Message)
+					if newErr then
+						print("[COMMAND] Error:", newErr)
+					end
+				end
+			end
+		end
+	end
 end
 
 local function traceMain(Msg)

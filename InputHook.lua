@@ -1,12 +1,12 @@
 --[[
 
-    Apologies for the terrible coding style,
-    I started this a long time ago and my modern styling looks very different.
+	Apologies for the terrible coding style,
+	I started this a long time ago and my modern styling looks very different.
 
-    Notes:
-        -This is ran as a sandboxed script (sub-script) created by the main module that Trace.lua is from, the effects of which are:
-            -inputData is a dictionary that is shared by the main module and this sub-script.
-                -inputData contains one key-value pair, the key is "tracedAlerts", the value is a table
+	Notes:
+		-This is ran as a sandboxed script (sub-script) created by the main module that Trace.lua is from, the effects of which are:
+			-inputData is a dictionary that is shared by the main module and this sub-script.
+				-inputData contains one key-value pair, the key is "tracedAlerts", the value is a table
 
 ]]
 
@@ -291,15 +291,15 @@ end
 
 connectChat = function(Plr)
 	local PlrChattedCon; PlrChattedCon = Plr.Chatted:connect(function(Msg)
-        local origMsg = Msg
-        if Msg:sub(1, 3) == "/e " then
-            Msg = Msg:sub(4)
-        end
-        if origMsg == Msg then
-            controlData(Msg, Plr, "[C]")
-        else
-            controlData(Msg, Plr, "[E]")
-        end
+		local origMsg = Msg
+		if Msg:sub(1, 3) == "/e " then
+			Msg = Msg:sub(4)
+		end
+		if origMsg == Msg then
+			controlData(Msg, Plr, "[C]")
+		else
+			controlData(Msg, Plr, "[E]")
+		end
 	end)
 end
 
@@ -307,41 +307,41 @@ connectBar = function(Plr, Bar)
 	local LastText = ""
 	local BarChangedCon; BarChangedCon = Bar.Changed:connect(function(P)
 		local NewText = Bar.Text
-        if P == "Text" then
-            local CodeText = LastText
-            LastText = NewText
-            if not ignoreTexts[CodeText] and not tonumber(CodeText) and not AllThings[CodeText:lower()] and (((NewText == "" or ignoreTexts[NewText]) and #CodeText > 1) or getChanges(NewText, CodeText) > 2) then
-                local Sign = "[B]"
-                local Result = (Sign .. " [" .. Plr.Name .. "] " .. CodeText)
-                tinsert(DataTab, Result)
-                if #DataTab > 20 then
-                    tremove(DataTab, 1)
-                end
-                local preData, trueData, realData
-                local Sign2 = nil
-                preData, trueData = CodeText:match("(.-/)(.+)")
-                local didPrint = false
-                if preData and twoDash[preData] then
-                    local dashTwoNum = trueData:match("()/")
-                    local preDashTwo = dashTwoNum and trueData:sub(1, dashTwoNum-1) or ""
-                    local endData = trueData:sub(dashTwoNum+1)
-                    if not dashTwoNum or not endData or #endData < 1 then
-                        return
-                    end
-                    trueData = endData
-                    Sign2 = "/" .. preDashTwo
-                end
-                if CodeText:lower():find("http") then
-                    realData = getRealData(trueData)
-                else
-                    realData = trueData
-                end
-                preData = preData or "CUSTOM"
-                trueData = trueData or CodeText
-                realData = realData or trueData
-                handleData(preData, CodeText, trueData, realData, Plr, Sign, Sign2)
-            end
-        end
+		if P == "Text" then
+			local CodeText = LastText
+			LastText = NewText
+			if not ignoreTexts[CodeText] and not tonumber(CodeText) and not AllThings[CodeText:lower()] and (((NewText == "" or ignoreTexts[NewText]) and #CodeText > 1) or getChanges(NewText, CodeText) > 2) then
+				local Sign = "[B]"
+				local Result = (Sign .. " [" .. Plr.Name .. "] " .. CodeText)
+				tinsert(DataTab, Result)
+				if #DataTab > 20 then
+					tremove(DataTab, 1)
+				end
+				local preData, trueData, realData
+				local Sign2 = nil
+				preData, trueData = CodeText:match("(.-/)(.+)")
+				local didPrint = false
+				if preData and twoDash[preData] then
+					local dashTwoNum = trueData:match("()/")
+					local preDashTwo = dashTwoNum and trueData:sub(1, dashTwoNum-1) or ""
+					local endData = trueData:sub(dashTwoNum+1)
+					if not dashTwoNum or not endData or #endData < 1 then
+						return
+					end
+					trueData = endData
+					Sign2 = "/" .. preDashTwo
+				end
+				if CodeText:lower():find("http") then
+					realData = getRealData(trueData)
+				else
+					realData = trueData
+				end
+				preData = preData or "CUSTOM"
+				trueData = trueData or CodeText
+				realData = realData or trueData
+				handleData(preData, CodeText, trueData, realData, Plr, Sign, Sign2)
+			end
+		end
 	end)
 end
 
@@ -419,10 +419,10 @@ end
 
 local PlrAddedCon; PlrAddedCon = Plrs.PlayerAdded:connect(function(v)
 	coroutine.resume(coroutine.create(function()
-        --connectChat(v)
-    end))
-    coroutine.resume(coroutine.create(function()
-        connectCheck(v)
-    end))
-    print("ConnectedR", v.Name)
+		--connectChat(v)
+	end))
+	coroutine.resume(coroutine.create(function()
+		connectCheck(v)
+	end))
+	print("ConnectedR", v.Name)
 end)
